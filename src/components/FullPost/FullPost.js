@@ -2,7 +2,7 @@
 import { useEffect } from 'react';
 import './FullPost.css';
  
-export default ({post , deleteFunction}) => {
+export default ({post , deleteFunction , editPost}) => {
    
     
     return (
@@ -11,6 +11,7 @@ export default ({post , deleteFunction}) => {
                 <p>{post.body}</p>
                 <div className="Edit">
                     <button onClick={() => deleteFunction(post.id)} className="Delete">Delete</button>
+                    <button onClick={() => editPost(post.id)} className="Edit">Edit</button>
                 </div>
             </div>
     )
