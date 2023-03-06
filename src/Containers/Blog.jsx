@@ -8,6 +8,7 @@ export default () => {
   const [posts, setPosts] = useState([]);
   const [activePost, setActivePost] = useState();
   const [isLoading, setIsLoading] = useState(true);
+  const [formIsVisible, setFormIsVisible] = useState(true);
 
   useEffect(() => {
     axios.get("https://jsonplaceholder.typicode.com/posts").then((response) => {
@@ -25,7 +26,8 @@ export default () => {
   }
 
   function deletePost(id) {
-    axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
       .then((response) => {
         console.log(response);
       });
@@ -36,6 +38,20 @@ export default () => {
 
     setActivePost(newPosts[0]);
   }
+
+  function addPost(post) {
+    setFormIsVisible(false);
+    axios
+      .post("https://jsonplaceholder.typicode.com/posts", post)
+      .then((response) => {
+        console.log(response);
+
+        const newPosts = [...posts, response.data];
+
+        setPosts(newPosts);
+      })
+      .finally(() => setFormIsVisible(true))
+  }
   return (
     <div>
       {isLoading && <h1>Loading...</h1>}
@@ -43,12 +59,17 @@ export default () => {
         <>
           <section className="Posts">
             {posts.map((post) => (
-              <Post clicked={changeActivePost} key={post.id} post={post} />
+              <Post activePost={activePost} clicked={changeActivePost} key={post.id} post={post} />
             ))}
           </section>
-          <section>{activePost && <FullPost deleteFunction={deletePost} post={activePost} />}</section>
           <section>
-            <NewPost />
+            {activePost && (
+              <FullPost deleteFunction={deletePost} post={activePost} />
+            )}
+          </section>
+          <section>
+            {!formIsVisible && <h3>Loading...</h3> }
+            {formIsVisible && <NewPost addPost={addPost} />}
           </section>
         </>
       )}
