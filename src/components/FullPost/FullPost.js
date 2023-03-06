@@ -3,7 +3,6 @@ import { useEffect } from 'react';
 import './FullPost.css';
  
 export default ({post}) => {
-    useEffect(() => console.log(post),[])
     return (
         <div className="FullPost">
                 <h1>{post.title}</h1>

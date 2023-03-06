@@ -17,11 +17,14 @@ export default () => {
             setPosts(posts)
 
             setActivePost(posts[0])
-            console.log(posts)
 
             setIsLoading(false)
         })
     },[])
+
+    function changeActivePost(id) {
+        console.log(id)
+    }
   return (
     <div>
         {isLoading && <h1>Loading...</h1>}
@@ -29,7 +32,7 @@ export default () => {
             (!isLoading && posts.length > 0) && (
                 <>
                 <section className="Posts">
-                {posts.map(post => <Post key={post.id} title={post.title} />)}
+                {posts.map(post => <Post clicked={changeActivePost} key={post.id} post={post} />)}
             </section>
             <section>
                 { activePost && (
