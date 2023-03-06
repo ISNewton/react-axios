@@ -29,6 +29,12 @@ export default () => {
       .then((response) => {
         console.log(response);
       });
+
+    const newPosts = posts.filter((post) => post.id !== id);
+
+    setPosts(newPosts);
+
+    setActivePost(newPosts[0]);
   }
   return (
     <div>
@@ -40,7 +46,7 @@ export default () => {
               <Post clicked={changeActivePost} key={post.id} post={post} />
             ))}
           </section>
-          <section>{activePost && <FullPost post={activePost} />}</section>
+          <section>{activePost && <FullPost deleteFunction={deletePost} post={activePost} />}</section>
           <section>
             <NewPost />
           </section>
