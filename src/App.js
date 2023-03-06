@@ -1,12 +1,8 @@
-import BurgerBuilder from "./Components/BurgerBuilder";
-import Layout  from "./Layout/Layout";
+import Blog from "./Containers/Blog";
 function App() {
-
   return (
-    <div>
-      <Layout>
-        <BurgerBuilder />
-      </Layout>
+    <div className="App">
+      <Blog />
     </div>
   );
 }
