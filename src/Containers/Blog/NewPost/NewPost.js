@@ -19,7 +19,15 @@ export default ({ addPost, postToEdit, editMode, updatePost }) => {
 
   }, [editMode])
 
-  
+  function addPost(post) {
+
+    axios
+      .post("https://jsonplaceholder.typicode.com/posts", post)
+      .then((response) => {
+        navigate('/')
+      })
+  }
+
   function updatePost() {
     axios.put(`https://jsonplaceholder.typicode.com/posts/${post.id}`, post)
       .then(response => {
