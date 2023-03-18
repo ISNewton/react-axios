@@ -9,6 +9,8 @@ export default () => {
   const [activePost, setActivePost] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [formIsVisible, setFormIsVisible] = useState(true);
+  const [postToEdit, setPostToEdit] = useState(null);
+  const [editMode, setEditMode] = useState(false);
 
   useEffect(() => {
     axios.get("https://jsonplaceholder.typicode.com/posts").then((response) => {
@@ -52,6 +54,17 @@ export default () => {
       })
       .finally(() => setFormIsVisible(true))
   }
+
+  function editPost(id) {
+    const post = posts.find(post => post.id === id)
+
+    setPostToEdit(post)
+
+    setEditMode(true)
+
+    // console.log(post);
+
+  }
   return (
     <div>
       {isLoading && <h1>Loading...</h1>}
@@ -64,12 +77,12 @@ export default () => {
           </section>
           <section>
             {activePost && (
-              <FullPost deleteFunction={deletePost} post={activePost} />
+              <FullPost deleteFunction={deletePost} post={activePost} editPost={editPost} />
             )}
           </section>
           <section>
             {!formIsVisible && <h3>Loading...</h3> }
-            {formIsVisible && <NewPost addPost={addPost} />}
+            {formIsVisible && <NewPost editMode={editMode} postToEdit={postToEdit} addPost={addPost} />}
           </section>
         </>
       )}
