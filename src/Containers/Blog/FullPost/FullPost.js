@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import { Navigate, redirect, useNavigate, useParams } from 'react-router-dom';
+import { Link, Navigate, redirect, useNavigate, useParams } from 'react-router-dom';
 import './FullPost.css';
 
 export default (porps) => {
@@ -25,6 +25,13 @@ export default (porps) => {
             })
     }
 
+    // function editPost() {
+    //     axios.delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+    //         .then(response => {
+    //             navigate('/')
+    //         })
+    // }
+
     return (
         <div className="FullPost">
             {post && (
@@ -32,8 +39,8 @@ export default (porps) => {
                     <h1>{post.title}</h1>
                     <p>{post.body}</p>
                     <div className="Edit">
-                        <button onClick={() => deletePost()} className="Delete">Delete</button>
-                        {/* <button onClick={() => editPost(post.id)} className="Edit">Edit</button> */}
+                        <button  onClick={() => deletePost()} className="Delete">Delete</button>
+                        <Link to={`edit`}  className="Edit">Edit</Link>
                     </div>
                 </>
 
