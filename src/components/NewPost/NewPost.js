@@ -1,6 +1,6 @@
 import "./NewPost.css";
 import { useEffect, useState } from "react";
-export default ({ addPost, postToEdit, editMode }) => {
+export default ({ addPost, postToEdit, editMode , updatePost }) => {
   const [post, setPost] = useState({
     title: "",
     body: "",
@@ -11,7 +11,14 @@ export default ({ addPost, postToEdit, editMode }) => {
     console.log(postToEdit);
     if (editMode) {
       setPost(postToEdit)
+    } else {
+      setPost({
+        title: "",
+        body: "",
+        author: "",
+    })
     }
+
   }, [editMode])
 
   return (
@@ -38,7 +45,7 @@ export default ({ addPost, postToEdit, editMode }) => {
         <option value="Max">Max</option>
         <option value="Manu">Manu</option>
       </select>
-      <button onClick={() => addPost(post)}>Add Post</button>
+      <button onClick={() => editMode ? updatePost(post) : addPost(post)}>{editMode ? 'Edit post' : 'Add post'}</button>
     </div>
   );
 };

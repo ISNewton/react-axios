@@ -24,6 +24,8 @@ export default () => {
   }, []);
 
   function changeActivePost(post) {
+    setEditMode(false)
+    setPostToEdit(null)
     setActivePost(post);
   }
 
@@ -43,6 +45,7 @@ export default () => {
 
   function addPost(post) {
     setFormIsVisible(false);
+
     axios
       .post("https://jsonplaceholder.typicode.com/posts", post)
       .then((response) => {
@@ -53,6 +56,27 @@ export default () => {
         setPosts(newPosts);
       })
       .finally(() => setFormIsVisible(true))
+  }
+
+  function updatePost(post) {
+    axios.put(`https://jsonplaceholder.typicode.com/posts/${post.id}`,post)
+    .then(response => {
+      let oldPostIndex = posts.findIndex(post => post.id === post.id)
+      const postsState = posts
+      postsState[oldPostIndex] = post
+
+      setPosts(postsState)
+
+      setActivePost(post)
+
+      setEditMode(false)
+
+      setPostToEdit(null)
+
+      // console.log(posts);
+
+    })
+    .finally(() => setFormIsVisible(true))
   }
 
   function editPost(id) {
@@ -82,7 +106,7 @@ export default () => {
           </section>
           <section>
             {!formIsVisible && <h3>Loading...</h3> }
-            {formIsVisible && <NewPost editMode={editMode} postToEdit={postToEdit} addPost={addPost} />}
+            {formIsVisible && <NewPost editMode={editMode} updatePost={updatePost} postToEdit={postToEdit} addPost={addPost} />}
           </section>
         </>
       )}
