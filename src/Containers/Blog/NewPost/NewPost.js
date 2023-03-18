@@ -1,6 +1,6 @@
 import "./NewPost.css";
 import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 export default ({ addPost, postToEdit, editMode, updatePost }) => {
   const [post, setPost] = useState({
@@ -9,6 +9,7 @@ export default ({ addPost, postToEdit, editMode, updatePost }) => {
     author: "",
   });
   const params = useParams()
+  const navigate = useNavigate()
 
   useEffect(() => {
     if (params.id) {
@@ -17,6 +18,15 @@ export default ({ addPost, postToEdit, editMode, updatePost }) => {
     }
 
   }, [editMode])
+
+  
+  function updatePost() {
+    axios.put(`https://jsonplaceholder.typicode.com/posts/${post.id}`, post)
+      .then(response => {
+        navigate('/')
+      })
+      
+  }
 
   return (
     <div className="NewPost">
