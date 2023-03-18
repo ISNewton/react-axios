@@ -1,28 +1,26 @@
 import "./NewPost.css";
 import { useEffect, useState } from "react";
-export default ({ addPost, postToEdit, editMode , updatePost }) => {
+import { useParams } from "react-router-dom";
+import axios from "axios";
+export default ({ addPost, postToEdit, editMode, updatePost }) => {
   const [post, setPost] = useState({
     title: "",
     body: "",
     author: "",
   });
+  const params = useParams()
 
   useEffect(() => {
-    if (editMode) {
-      setPost(postToEdit)
-    } else {
-      setPost({
-        title: "",
-        body: "",
-        author: "",
-    })
+    if (params.id) {
+      axios.get(`https://jsonplaceholder.typicode.com/posts/${params.id}`)
+        .then(response => setPost(response.data))
     }
 
   }, [editMode])
 
   return (
     <div className="NewPost">
-      <h1>Add a Post</h1>
+      <h1>{params.id ? 'Update post' : 'Add post'}</h1>
       <label>Title</label>
       <input
         type="text"
@@ -44,7 +42,7 @@ export default ({ addPost, postToEdit, editMode , updatePost }) => {
         <option value="Max">Max</option>
         <option value="Manu">Manu</option>
       </select>
-      <button onClick={() => editMode ? updatePost(post) : addPost(post)}>{editMode ? 'Edit post' : 'Add post'}</button>
+      <button onClick={() => params.id ? updatePost(post) : addPost(post)}>{params.id ? 'Update post' : 'Add post'}</button>
     </div>
   );
 };

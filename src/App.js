@@ -23,8 +23,9 @@ function App() {
 
 
           <Route exact path='/' element={<Blog />} />
-          <Route exact path='/create' element={<NewPost />} />
+          <Route exact path='/create'  element={<NewPost />} />
           <Route exact path='/posts/:id' element={<FullPost />} />
+          <Route exact path='/posts/:id/edit' element={<NewPost />} />
 
         </Routes>
       </BrowserRouter>

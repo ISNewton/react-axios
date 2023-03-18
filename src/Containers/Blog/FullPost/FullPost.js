@@ -39,7 +39,7 @@ export default (porps) => {
                     <h1>{post.title}</h1>
                     <p>{post.body}</p>
                     <div className="Edit">
-                        <button  onClick={() => deletePost()} className="Delete">Delete</button>
+                        <button  onClick={deletePost} className="Delete">Delete</button>
                         <Link to={`edit`}  className="Edit">Edit</Link>
                     </div>
                 </>
