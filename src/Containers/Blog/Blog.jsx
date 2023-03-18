@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Post from "../components/Post/Post";
-import NewPost from "../components/NewPost/NewPost";
-import FullPost from "../components/FullPost/FullPost";
 import "./Blog.css";
+import Post from "../../components/Post/Post";
 export default () => {
   const [posts, setPosts] = useState([]);
   const [activePost, setActivePost] = useState();
@@ -87,6 +85,8 @@ export default () => {
   }
   return (
     <div>
+
+
       {isLoading && <h1>Loading...</h1>}
       {!isLoading && posts.length > 0 && (
         <>
@@ -95,15 +95,13 @@ export default () => {
               <Post activePostId={activePost.id} clicked={changeActivePost} key={post.id} post={post} />
             ))}
           </section>
-          <section>
+          {/* <section>
             {activePost && (
               <FullPost deleteFunction={deletePost} post={activePost} editPost={editPost} />
             )}
-          </section>
-          <section>
-            {!formIsVisible && <h3>Loading...</h3>}
-            {formIsVisible && <NewPost editMode={editMode} updatePost={updatePost} postToEdit={postToEdit} addPost={addPost} />}
-          </section>
+          </section> */}
+            {/* {!formIsVisible && <h3>Loading...</h3>} */}
+            {/* {formIsVisible && <NewPost editMode={editMode} updatePost={updatePost} postToEdit={postToEdit} addPost={addPost} />} */}
         </>
       )}
     </div>
