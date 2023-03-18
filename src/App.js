@@ -2,6 +2,7 @@ import { BrowserRouter, Link, NavLink, Route, Router, Routes } from "react-route
 import Blog from "./Containers/Blog/Blog";
 import NewPost from "./Containers/Blog/NewPost/NewPost";
 import './App.css'
+import FullPost from "./Containers/Blog/FullPost/FullPost";
 function App() {
   return (
     <div className="App">
@@ -23,6 +24,7 @@ function App() {
 
           <Route exact path='/' element={<Blog />} />
           <Route exact path='/create' element={<NewPost />} />
+          <Route exact path='/posts/:id' element={<FullPost />} />
 
         </Routes>
       </BrowserRouter>

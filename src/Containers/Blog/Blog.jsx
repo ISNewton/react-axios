@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import "./Blog.css";
 import Post from "../../components/Post/Post";
+import { Link } from "react-router-dom";
 export default () => {
   const [posts, setPosts] = useState([]);
   const [activePost, setActivePost] = useState();
@@ -92,7 +93,9 @@ export default () => {
         <>
           <section className="Posts">
             {posts.map((post) => (
-              <Post activePostId={activePost.id} clicked={changeActivePost} key={post.id} post={post} />
+              <Link key={post.id} to={`posts/${post.id}`}>
+              <Post activePostId={activePost.id} clicked={changeActivePost} post={post} />
+              </Link>
             ))}
           </section>
           {/* <section>
