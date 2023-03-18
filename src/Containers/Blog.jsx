@@ -62,13 +62,13 @@ export default () => {
     axios.put(`https://jsonplaceholder.typicode.com/posts/${updatedPost.id}`, updatedPost)
       .then(response => {
 
-        const postsState = posts
-        postsState.map(post =>  post.id === updatedPost.id ? updatedPost : post )
+        const postsState = posts.map(post => post.id === updatedPost.id ? response.data : post)
 
-        console.log(postsState);
+
         setPosts(postsState)
 
-        setActivePost(updatedPost)
+
+        setActivePost(response.data)
 
         setEditMode(false)
 

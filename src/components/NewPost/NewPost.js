@@ -8,7 +8,6 @@ export default ({ addPost, postToEdit, editMode , updatePost }) => {
   });
 
   useEffect(() => {
-    console.log(postToEdit);
     if (editMode) {
       setPost(postToEdit)
     } else {
