@@ -58,25 +58,24 @@ export default () => {
       .finally(() => setFormIsVisible(true))
   }
 
-  function updatePost(post) {
-    axios.put(`https://jsonplaceholder.typicode.com/posts/${post.id}`,post)
-    .then(response => {
-      let oldPostIndex = posts.findIndex(post => post.id === post.id)
-      const postsState = posts
-      postsState[oldPostIndex] = post
+  function updatePost(updatedPost) {
+    axios.put(`https://jsonplaceholder.typicode.com/posts/${updatedPost.id}`, updatedPost)
+      .then(response => {
 
-      setPosts(postsState)
+        const postsState = posts
+        postsState.map(post =>  post.id === updatedPost.id ? updatedPost : post )
 
-      setActivePost(post)
+        console.log(postsState);
+        setPosts(postsState)
 
-      setEditMode(false)
+        setActivePost(updatedPost)
 
-      setPostToEdit(null)
+        setEditMode(false)
 
-      // console.log(posts);
+        setPostToEdit(null)
 
-    })
-    .finally(() => setFormIsVisible(true))
+      })
+      .finally(() => setFormIsVisible(true))
   }
 
   function editPost(id) {
@@ -85,9 +84,6 @@ export default () => {
     setPostToEdit(post)
 
     setEditMode(true)
-
-    // console.log(post);
-
   }
   return (
     <div>
@@ -96,7 +92,7 @@ export default () => {
         <>
           <section className="Posts">
             {posts.map((post) => (
-              <Post activePost={activePost} clicked={changeActivePost} key={post.id} post={post} />
+              <Post activePostId={activePost.id} clicked={changeActivePost} key={post.id} post={post} />
             ))}
           </section>
           <section>
@@ -105,7 +101,7 @@ export default () => {
             )}
           </section>
           <section>
-            {!formIsVisible && <h3>Loading...</h3> }
+            {!formIsVisible && <h3>Loading...</h3>}
             {formIsVisible && <NewPost editMode={editMode} updatePost={updatePost} postToEdit={postToEdit} addPost={addPost} />}
           </section>
         </>
